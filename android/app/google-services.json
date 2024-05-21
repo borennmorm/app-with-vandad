@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "356670816453",
+    "project_id": "application-vandad",
+    "storage_bucket": "application-vandad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356670816453:android:34f5e331b155011e9830ac",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_vandad"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIbnibbhWuHyolJyHmqSoy99l2QeSH5Yo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
