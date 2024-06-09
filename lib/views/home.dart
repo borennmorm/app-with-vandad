@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_vandad/firebase_options.dart';
+import 'package:flutter_application_vandad/views/note_view.dart';
 import 'package:flutter_application_vandad/views/verify_email_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,17 +26,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-        backgroundColor: Colors.grey[200],
-      ),
       body: FutureBuilder(
         future: _initialization,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             final user = FirebaseAuth.instance.currentUser;
             if (user != null && user.emailVerified) {
-              return const Center(child: Text('Welcome, verified user!'));
+              return const NoteView();
             } else {
               return const Center(child: VerifyEmailView());
             }

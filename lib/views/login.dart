@@ -4,9 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_vandad/firebase_options.dart';
-import 'package:flutter_application_vandad/views/register.dart';
-
-import 'home.dart';
+import 'package:flutter_application_vandad/views/forget_password.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -70,6 +68,15 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ),
                     TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ForgetPasswordView()));
+                        },
+                        child: const Text("Forget Password")),
+                    TextButton(
                         onPressed: () async {
                           final email = _email.text;
                           final password = _password.text;
@@ -82,23 +89,18 @@ class _LoginViewState extends State<LoginView> {
                             print(
                                 'Successfully logged in: ${userCredential.user}');
 
-                            if (!mounted)
+                            if (!mounted) {
                               return; // Ensure the widget is still mounted
+                            }
                             Navigator.of(context).pushNamedAndRemoveUntil(
                               '/home/',
                               (route) => false,
                             );
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'user-not-found') {
-                              print('User not found');
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('User not found')),
-                              );
+                              showErrorSnackbar(context, 'User not fount');
                             } else if (e.code == 'wrong-password') {
-                              print('Wrong password');
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Wrong password')),
-                              );
+                              showErrorSnackbar(context, 'Wrong password');
                             } else {
                               print('Something else happened');
                               print(e.code);
@@ -138,5 +140,23 @@ class _LoginViewState extends State<LoginView> {
             }
           },
         ));
+  }
+
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showErrorSnackbar(
+    BuildContext context,
+    String text,
+  ) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+        duration: const Duration(seconds: 1),
+        action: SnackBarAction(
+          label: 'Close',
+          onPressed: () {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          },
+        ),
+      ),
+    );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_application_vandad/views/login.dart';
 import '../firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -67,7 +66,7 @@ class _RegisterViewState extends State<RegisterView> {
                   ),
                   TextButton(
                     onPressed: () async {
-                      final email = _email.text.trim();
+                      _email.text.trim();
                       final password = _password.text.trim();
 
                       if (password.length < 6) {
@@ -81,12 +80,6 @@ class _RegisterViewState extends State<RegisterView> {
                       }
 
                       try {
-                        UserCredential userCredential = await FirebaseAuth
-                            .instance
-                            .createUserWithEmailAndPassword(
-                          email: email,
-                          password: password,
-                        );
                         // Handle successful registration
                         if (!mounted) return;
                         ScaffoldMessenger.of(context).showSnackBar(
